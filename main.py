@@ -1,29 +1,18 @@
 from parsel import Selector
 from httpx import get
+from tibia_wiki_extractor.extraction import generate_page_selector, apply_css_filters_on_selector, collect_text_from_selector_row
 
-response = get('https://www.tibiawiki.com.br/wiki/Armaduras').content
-sel = Selector(text=response.decode())
-filtro_1_pegar_a_tabela = 'table#tabelaDPL'
-filtro_2_pegar_a_linha = 'tr'
-numero_de_linhas_na_tabela = len(sel.css(filtro_1_pegar_a_tabela).css(filtro_2_pegar_a_linha))
+url= 'https://www.tibiawiki.com.br/wiki/Armaduras'
+filters = ['table#tabelaDPL','tr']
+sel = generate_page_selector(url)
+table_row_selector = apply_css_filters_on_selector(sel, filters)
 
-def coletar_dado_da_linha(linha_da_tabela, tag_do_dado, numero_da_coluna=0, get_all=False):
-    if get_all:
-        dado = (linha_da_tabela
-                    .css('td')[numero_da_coluna]
-                    .css(f'{tag_do_dado}::text')
-                    .getall())
-    else:
-        dado = (linha_da_tabela
-                    .css('td')[numero_da_coluna]
-                    .css(f'{tag_do_dado}::text')
-                    .get())
-    return dado 
+num_of_rows_in_table = len(table_row_selector)
 
-for linha in range(1,numero_de_linhas_na_tabela):
-    linha_da_tabela = sel.css(filtro_1_pegar_a_tabela).css(filtro_2_pegar_a_linha)[linha]
+for row in range(1,num_of_rows_in_table):
+    table_row = table_row_selector[row]
     
-    nome_do_item = coletar_dado_da_linha(linha_da_tabela, 'a', 0)
-    lvl_do_item = coletar_dado_da_linha(linha_da_tabela, 'small', 2)
+    item_name = collect_text_from_selector_row(table_row, 'a', 0)
+    item_level = collect_text_from_selector_row(table_row, 'small', 2)
     
-    print(f'{linha}: "{nome_do_item}" "{lvl_do_item}"')
+    print(f'{row}: "{item_name}" "{item_level}"')
