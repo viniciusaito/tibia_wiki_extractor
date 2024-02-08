@@ -1,5 +1,3 @@
-from parsel import Selector
-from httpx import get
 from tibia_wiki_extractor.extraction import *
 
 url= 'https://www.tibiawiki.com.br/wiki/Armaduras'
