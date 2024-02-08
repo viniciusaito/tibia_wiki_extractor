@@ -2,8 +2,8 @@ from tibia_wiki_extractor.extraction import *
 
 url= 'https://www.tibiawiki.com.br/wiki/Armaduras'
 filters = ['table#tabelaDPL','tr']
-sel = generate_page_selector(url)
-table = apply_css_filters_on_selector(sel, filters)
+http_selector = generate_page_selector(url)
+table = apply_css_filters_on_selector(http_selector, filters)
 
 num_of_rows_in_table = len(table)
 
