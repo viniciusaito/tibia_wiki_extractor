@@ -8,7 +8,7 @@ def generate_page_selector(url):
     url : str
         URL that will be turned into a selector
     """
-    response = get('https://www.tibiawiki.com.br/wiki/Armaduras').content
+    response = get(url).content
     sel = Selector(text=response.decode())
     return sel
 
