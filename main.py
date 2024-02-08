@@ -1,6 +1,6 @@
 from parsel import Selector
 from httpx import get
-from tibia_wiki_extractor.extraction import (generate_page_selector, apply_css_filters_on_selector, collect_text_from_selector_row, getall_text_from_table_row)
+from tibia_wiki_extractor.extraction import *
 
 url= 'https://www.tibiawiki.com.br/wiki/Armaduras'
 filters = ['table#tabelaDPL','tr']
