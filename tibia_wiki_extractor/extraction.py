@@ -48,3 +48,12 @@ def collect_text_from_selector_row(table_row_selector, filters, row_number=0, ge
                     .css(f'{filters}::text')
                     .get())
     return text
+
+def getall_text_from_table_row(table_row, row_number):
+    text_data = apply_css_filters_on_selector(table_row, ['td'])
+    table_data = text_data[row_number]
+    list_of_text_data = table_data.css('::text').getall()
+    list_of_text_data = [string for string in list_of_text_data if string != '\n']
+    final_string = ''.join(list_of_text_data)
+    
+    return final_string
