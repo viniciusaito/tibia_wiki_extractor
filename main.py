@@ -1,6 +1,7 @@
 from tibia_wiki_extractor.extraction import *
 from tibia_wiki_extractor.database.connector import *
 from tibia_wiki_extractor.database.tables.armor import Armor
+from sqlalchemy import delete
 
 url= 'https://www.tibiawiki.com.br/wiki/Armaduras'
 filters = ['table#tabelaDPL','tr']
@@ -8,6 +9,11 @@ http_selector = generate_page_selector(url)
 table = apply_css_filters_on_selector(http_selector, filters)
 
 num_of_rows_in_table = len(table)
+
+engine = generate_database_engine()
+session = generate_database_session(engine)
+
+session.query(Armor).delete()
 
 armors = []
 column_list = {0:"name", 
@@ -26,9 +32,6 @@ for row in range(1,num_of_rows_in_table):
         data = getall_text_from_table_row(table_row, column)
         string_list.append(data)
     armors.append(string_list)
-
-engine = generate_database_engine()
-session = generate_database_session(engine)
 
 for armor in armors:
     if armor[5] == '':
