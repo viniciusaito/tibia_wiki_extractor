@@ -13,10 +13,10 @@ def generate_page_selector(url):
     return sel
 
 def apply_css_filters_on_selector(sel, filters):
-    """Returns a selector but with all css filters applyed on it
+    """Returns a selector but with all css filters applied on it
     Parameters
     ----------
-    sel : sel
+    sel : selector
         A parsel selector
     filters : list
         List of filters that will be applied to the selector
@@ -27,6 +27,14 @@ def apply_css_filters_on_selector(sel, filters):
     return sel
 
 def getall_text_from_table_row(table_row, row_number):
+    """ Get all text from a TD element and remove line breaks from it
+    Parameters
+    ----------
+    table_row : selector
+        A parsel selector
+    row_number : int
+        The number of the row that the text will be extracted
+    """
     text_data = apply_css_filters_on_selector(table_row, ['td'])
     table_data = text_data[row_number]
     list_of_text_data = table_data.css('::text').getall()
