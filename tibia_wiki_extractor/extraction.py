@@ -39,6 +39,7 @@ def getall_text_from_table_row(table_row, row_number):
     table_data = text_data[row_number]
     list_of_text_data = table_data.css('::text').getall()
     list_of_text_data = [string for string in list_of_text_data if string != '\n']
-    final_string = ''.join(list_of_text_data)
+    joined_string = ''.join(list_of_text_data)
+    final_string = joined_string.replace('\n','')
     
     return final_string
