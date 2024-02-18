@@ -1,3 +1,4 @@
 tibia_wiki_extractor/__pycache__
 __pycache__
 .env
+docker_compose.yaml
