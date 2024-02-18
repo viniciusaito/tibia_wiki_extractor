@@ -43,3 +43,24 @@ def getall_text_from_table_row(table_row, row_number):
     final_string = joined_string.replace('\n','')
     
     return final_string
+
+def extract_columns_from_table(column_list, table):
+    """ Extract specific columns from a table, can use either list of columns or dict
+    Parameters
+    ----------
+    column_list : list, dict
+        List of columns that will be extracted from the table
+    table : selector
+        Selector in a table, can be created by using function apply_css_filters_on_selecter to filter a table.
+    """
+    num_of_rows_in_table = len(table)
+    armors = []
+    for row in range(1,num_of_rows_in_table):
+        string_list = []
+        table_row = table[row]
+        for column in column_list:
+            data = getall_text_from_table_row(table_row, column)
+            string_list.append(data)
+        armors.append(string_list)
+
+    return armors
