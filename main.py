@@ -24,7 +24,7 @@ for row in range(1,num_of_rows_in_table):
     string_list = []
     table_row = table[row]
     for column in column_list:
-        data = getall_text_from_table_row(table_row, column).replace('\n','')
+        data = getall_text_from_table_row(table_row, column)
         string_list.append(data)
     string_list_2.append(string_list)
 
