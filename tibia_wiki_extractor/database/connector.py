@@ -17,6 +17,6 @@ def generate_database_engine():
     )
     return create_engine(url, echo=True)
 
-def generate_database_session(engine):
-    Session = sessionmaker(bind=engine)
+def generate_database_session():
+    Session = sessionmaker(bind=generate_database_engine())
     return Session()
